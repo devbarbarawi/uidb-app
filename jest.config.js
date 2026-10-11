@@ -20,6 +20,10 @@ export default {
       },
     ],
   },
+  moduleNameMapper: {
+    // Stylesheets (the font faces) have no exports; Jest cannot parse CSS.
+    '\\.css$': '<rootDir>/test/styleMock.cjs',
+  },
   clearMocks: true,
   restoreMocks: true,
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/main.tsx', '!src/**/*.d.ts'],
