@@ -1,0 +1,26 @@
+/** @type {import('jest').Config} */
+export default {
+  // A browser-like DOM in Node, so components can render.
+  testEnvironment: 'jsdom',
+  roots: ['<rootDir>/src'],
+  setupFilesAfterEnv: ['<rootDir>/test/setupTests.ts'],
+  transform: {
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: {
+          jsx: 'react-jsx',
+          module: 'commonjs',
+          moduleResolution: 'node10',
+          ignoreDeprecations: '6.0',
+          esModuleInterop: true,
+          isolatedModules: true,
+          verbatimModuleSyntax: false,
+        },
+      },
+    ],
+  },
+  clearMocks: true,
+  restoreMocks: true,
+  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/main.tsx', '!src/**/*.d.ts'],
+}

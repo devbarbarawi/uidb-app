@@ -1,16 +1,32 @@
 import js from '@eslint/js'
+import { defineConfig, globalIgnores } from 'eslint/config'
 import prettier from 'eslint-config-prettier'
+import jest from 'eslint-plugin-jest'
 import jsxA11y from 'eslint-plugin-jsx-a11y'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import testingLibrary from 'eslint-plugin-testing-library'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
 export default defineConfig([
   globalIgnores(['dist', 'coverage']),
+
+  // Sorted imports in every file, JavaScript config files included (auto-fixable).
+  {
+    files: ['**/*.{js,ts,tsx}'],
+    plugins: { 'simple-import-sort': simpleImportSort },
+    rules: {
+      // Packages first, then aliases, then relative imports.
+      'simple-import-sort/imports': [
+        'error',
+        { groups: [['^\\u0000'], ['^react', '^@?\\w'], ['^@/'], ['^\\.']] },
+      ],
+      'simple-import-sort/exports': 'error',
+    },
+  },
 
   // TypeScript + React: recommended presets, type-aware.
   {
@@ -25,7 +41,6 @@ export default defineConfig([
       reactRefresh.configs.vite,
       jsxA11y.flatConfigs.strict,
     ],
-    plugins: { 'simple-import-sort': simpleImportSort },
     languageOptions: {
       globals: globals.browser,
       // Lets rules use TypeScript's type information.
@@ -33,12 +48,6 @@ export default defineConfig([
     },
     settings: { react: { version: 'detect' } },
     rules: {
-      // Packages first, then aliases, then relative imports (auto-fixable).
-      'simple-import-sort/imports': [
-        'error',
-        { groups: [['^\\u0000'], ['^react', '^@?\\w'], ['^@/'], ['^\\.']] },
-      ],
-      'simple-import-sort/exports': 'error',
       '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       'react/prop-types': 'off', // TypeScript checks props.
@@ -76,6 +85,13 @@ export default defineConfig([
       'keyword-spacing': ['error', { before: true, after: true }],
       'space-before-blocks': ['error', 'always'],
     },
+  },
+
+  // Unit tests.
+  {
+    files: ['**/*.test.{ts,tsx}'],
+    extends: [jest.configs['flat/recommended'], testingLibrary.configs['flat/react']],
+    languageOptions: { globals: globals.jest },
   },
 
   // Must stay last: turns off rules that conflict with Prettier.
