@@ -19,6 +19,8 @@ export default {
         },
       },
     ],
+    // Assets become their file name, as Vite turns them into URLs.
+    '\\.(svg|png)$': '<rootDir>/test/fileTransform.cjs',
   },
   moduleNameMapper: {
     // Stylesheets (the font faces) have no exports; Jest cannot parse CSS.

@@ -14,4 +14,10 @@ describe('App', () => {
 
     expect(screen.getByRole('heading', { level: 1, name: 'UIDB APP Explorer' })).toBeInTheDocument()
   })
+
+  test('Should render the header', () => {
+    render(<App />)
+
+    expect(screen.getByRole('banner')).toBeInTheDocument()
+  })
 })

@@ -20,6 +20,9 @@ export const tokenValues = {
     input: '#f6f6f8',
     border: '#ededf0',
     icon: '#838691',
+    neutral02: '#f4f5f6',
+    neutral10: '#50565e',
+    text3: '#808893',
   },
   font: {
     family: "'UI Sans', 'Lato', system-ui, -apple-system, 'Segoe UI', sans-serif",
@@ -41,6 +44,12 @@ export const tokenValues = {
   radius: {
     s: '4px',
     m: '8px',
+  },
+  border: {
+    width: '1px',
+  },
+  duration: {
+    fast: '120ms',
   },
 } as const
 
@@ -75,4 +84,4 @@ export const tokens = Object.fromEntries(
   ]),
 ) as TokenReferences
 
-export const { color, font, space, radius } = tokens
+export const { border, color, duration, font, radius, space } = tokens

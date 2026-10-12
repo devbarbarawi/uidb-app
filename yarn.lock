@@ -4507,6 +4507,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jest-styled-components@npm:7.4.0":
+  version: 7.4.0
+  resolution: "jest-styled-components@npm:7.4.0"
+  dependencies:
+    "@adobe/css-tools": "npm:^4.4.0"
+  peerDependencies:
+    styled-components: ">= 5"
+  checksum: 10c0/51f6a33690532dc8496e65b7c58ecd69f6bd75d1a4e61bd14c89c63095550d97244daef8d15406ba01198f74fc3c2706b95e66c53b17181ddf30ab1ffa4c4a32
+  languageName: node
+  linkType: hard
+
 "jest-util@npm:30.5.1":
   version: 30.5.1
   resolution: "jest-util@npm:30.5.1"
@@ -6478,6 +6489,7 @@ __metadata:
     globals: "npm:^17.12.0"
     jest: "npm:30.5.2"
     jest-environment-jsdom: "npm:30.5.2"
+    jest-styled-components: "npm:7.4.0"
     prettier: "npm:3.9.9"
     react: "npm:^19.2.8"
     react-dom: "npm:^19.2.8"
