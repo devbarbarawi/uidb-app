@@ -4,7 +4,10 @@ import { renderWithProviders } from '../../test'
 import { DevicePage } from './DevicePage'
 
 const uidbResponse = {
-  devices: [{ id: 'u6', product: { name: 'U6 Lite' }, line: { name: 'UniFi' } }],
+  devices: [
+    { id: 'u6', product: { name: 'U6 Lite' }, line: { name: 'UniFi' } },
+    { id: 'udr', product: { name: 'Dream Router' }, line: { name: 'UniFi' } },
+  ],
 }
 
 const renderDevicePage = (route: string) =>
@@ -36,5 +39,22 @@ describe('DevicePage', () => {
     await user.click(screen.getByRole('link', { name: 'Back' }))
 
     expect(router.state.location.pathname).toBe('/')
+  })
+
+  test('Should step to the next and previous device', async () => {
+    jest.spyOn(globalThis, 'fetch').mockResolvedValue(Response.json(uidbResponse))
+
+    const { router, user } = renderDevicePage('/devices/u6')
+    await user.click(await screen.findByRole('link', { name: 'Next device' }))
+
+    expect(router.state.location.pathname).toBe('/devices/udr')
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'Dream Router' }),
+    ).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'Next device' })).not.toBeInTheDocument()
+
+    await user.click(screen.getByRole('link', { name: 'Previous device' }))
+
+    expect(router.state.location.pathname).toBe('/devices/u6')
   })
 })

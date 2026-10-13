@@ -1,26 +1,25 @@
 import { useParams } from 'react-router'
 
 import { useGetDevicesData } from '../../api'
-import { DeviceDetails, StatusMessage } from '../../components'
-import { Icon } from '../../design-system'
+import { DeviceDetails, DeviceNavigation, StatusMessage } from '../../components'
 import { paths } from '../../paths'
-import { StyledBackLink } from './DevicePage.styles'
+import { getAdjacentItems } from '../../utils'
 
-/** One device, found by the `deviceId` in the URL. */
+/** One device, found by the `deviceId` in the URL, with links to the devices around it. */
 export const DevicePage = () => {
   const { deviceId } = useParams()
-  const { data: devices, isPending, isError, refetch } = useGetDevicesData()
-  const device = devices?.find((candidate) => candidate.id === deviceId)
+  const { data: devices = [], isPending, isError, refetch } = useGetDevicesData()
+  const device = devices.find((candidate) => candidate.id === deviceId)
+  const { previous, next } = getAdjacentItems(devices, deviceId)
 
   return (
     <>
       <title>{`${device?.name ?? 'Device'} · UIDB`}</title>
-      <nav aria-label="Device navigation">
-        <StyledBackLink to={paths.home}>
-          <Icon name="arrowLeft" />
-          Back
-        </StyledBackLink>
-      </nav>
+      <DeviceNavigation
+        backHref={paths.home}
+        previousHref={previous && paths.device(previous.id)}
+        nextHref={next && paths.device(next.id)}
+      />
       {isPending ? (
         <StatusMessage>Loading device…</StatusMessage>
       ) : isError ? (

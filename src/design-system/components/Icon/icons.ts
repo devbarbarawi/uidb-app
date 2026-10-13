@@ -1,4 +1,5 @@
 import arrowLeft from '../../assets/icons/arrow-left.svg'
+import arrowRight from '../../assets/icons/arrow-right.svg'
 import logo from '../../assets/icons/logo.svg'
 
 /**
@@ -9,6 +10,7 @@ import logo from '../../assets/icons/logo.svg'
  */
 export const icons = {
   arrowLeft,
+  arrowRight,
   logo,
 } as const
 
