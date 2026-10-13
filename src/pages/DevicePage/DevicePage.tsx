@@ -1,22 +1,23 @@
 import { useLocation, useParams } from 'react-router'
 
-import { searchDevices, useGetDevicesData } from '../../api'
+import { filterDevices, useGetDevicesData } from '../../api'
 import { DeviceDetails, DeviceNavigation, StatusMessage } from '../../components'
-import { useSearchQuery } from '../../hooks'
+import { useLineFilterParam, useSearchQuery } from '../../hooks'
 import { paths } from '../../paths'
 import { getAdjacentItems } from '../../utils'
 
 /**
- * One device, found by the `deviceId` in the URL. Back returns to the list with the same search,
- * and previous/next step through the devices matching that search.
+ * One device, found by the `deviceId` in the URL. Back returns to the list with the same search
+ * and filters, and previous/next step through the devices matching them.
  */
 export const DevicePage = () => {
   const { deviceId } = useParams()
   const { search } = useLocation()
   const [query] = useSearchQuery()
+  const [lines] = useLineFilterParam()
   const { data: devices = [], isPending, isError, refetch } = useGetDevicesData()
   const device = devices.find((candidate) => candidate.id === deviceId)
-  const { previous, next } = getAdjacentItems(searchDevices(devices, query), deviceId)
+  const { previous, next } = getAdjacentItems(filterDevices(devices, { query, lines }), deviceId)
 
   return (
     <>

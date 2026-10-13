@@ -55,7 +55,9 @@ describe('DeviceList', () => {
 
     renderWithProviders(<DeviceList />, { route: '/?q=toaster' })
 
-    expect(await screen.findByText('No devices match “toaster”.')).toHaveRole('status')
+    expect(await screen.findByText('No devices match your search and filters.')).toHaveRole(
+      'status',
+    )
   })
 
   test('Should show the devices as a grid of cards when the URL asks for it', async () => {
@@ -66,5 +68,14 @@ describe('DeviceList', () => {
     const grid = await screen.findByRole('list', { name: 'Devices' })
     expect(within(grid).getAllByRole('link')).toHaveLength(uidbResponse.devices.length)
     expect(screen.queryByRole('table')).not.toBeInTheDocument()
+  })
+
+  test('Should list only the devices of the product lines selected in the URL', async () => {
+    jest.spyOn(globalThis, 'fetch').mockResolvedValue(Response.json(uidbResponse))
+
+    renderWithProviders(<DeviceList />, { route: '/?line=UniFi+LTE' })
+
+    expect(await screen.findByRole('link', { name: 'U-LTE' })).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'U6 Lite' })).not.toBeInTheDocument()
   })
 })

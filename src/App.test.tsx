@@ -12,6 +12,6 @@ describe('App', () => {
 
     expect(screen.getByRole('banner')).toBeInTheDocument()
     expect(screen.getByRole('main')).toBeInTheDocument()
-    expect(screen.getByRole('heading', { level: 1, name: 'UIDB APP Explorer' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1, name: 'Devices' })).toBeInTheDocument()
   })
 })

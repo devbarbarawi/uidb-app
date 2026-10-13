@@ -1,16 +1,19 @@
-import { DeviceList, DeviceSearch, ViewToggle } from '../../components'
-import { StyledToolbar } from './DevicesPage.styles'
+import { DeviceList, DeviceSearch, ProductLineFilter, ViewToggle } from '../../components'
+import { StyledToolbar, StyledToolbarEnd, StyledVisuallyHidden } from './DevicesPage.styles'
 
-/** Home page: every UIDB device, with a search to narrow them down and a choice of layout. */
+/** Home page: every UIDB device, with a search, a product line filter and a choice of layout. */
 export const DevicesPage = () => (
   <>
     <title>Devices · UIDB</title>
 
-    <h1>UIDB APP Explorer</h1>
+    <StyledVisuallyHidden as="h1">Devices</StyledVisuallyHidden>
 
     <StyledToolbar>
       <DeviceSearch />
-      <ViewToggle />
+      <StyledToolbarEnd>
+        <ViewToggle />
+        <ProductLineFilter />
+      </StyledToolbarEnd>
     </StyledToolbar>
 
     <DeviceList />

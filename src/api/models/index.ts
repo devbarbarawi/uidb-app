@@ -1,4 +1,6 @@
 export { type Device } from './device'
+export { type DeviceFilters, filterDevices } from './filterDevices'
 export { getDeviceImageUrl } from './getDeviceImageUrl'
+export { getProductLines } from './getProductLines'
 export { searchDevices } from './searchDevices'
 export { toDevice, toDevices } from './toDevices'
