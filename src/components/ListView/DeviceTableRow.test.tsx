@@ -4,11 +4,11 @@ import type { Device } from '../../api'
 import { renderWithProviders } from '../../test'
 import { DeviceTableRow } from './DeviceTableRow'
 
-const renderRow = (device: Device) =>
+const renderRow = (device: Device, search = '') =>
   renderWithProviders(
     <table>
       <tbody>
-        <DeviceTableRow device={device} />
+        <DeviceTableRow device={device} search={search} />
       </tbody>
     </table>,
   )
@@ -51,5 +51,14 @@ describe('DeviceTableRow', () => {
     await user.click(screen.getByRole('link', { name: 'U6 Lite' }))
 
     expect(router.state.location.pathname).toBe('/devices/u6')
+  })
+
+  test('Should carry the search to the device page', () => {
+    renderRow({ id: 'u6', name: 'U6 Lite', lineName: 'UniFi', imageHash: undefined }, '?q=lite')
+
+    expect(screen.getByRole('link', { name: 'U6 Lite' })).toHaveAttribute(
+      'href',
+      '/devices/u6?q=lite',
+    )
   })
 })

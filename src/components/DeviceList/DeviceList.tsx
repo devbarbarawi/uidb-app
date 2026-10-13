@@ -1,8 +1,8 @@
 import { useDeferredValue } from 'react'
+import { useLocation } from 'react-router'
 
-import { useGetDevicesData } from '../../api'
+import { searchDevices, useGetDevicesData } from '../../api'
 import { useSearchQuery } from '../../hooks'
-import { matchesSearch } from '../../utils'
 import { DeviceTable } from '../ListView'
 import { StatusMessage } from '../StatusMessage'
 import { StyledDeviceList } from './DeviceList.styles'
@@ -11,6 +11,8 @@ import { StyledDeviceList } from './DeviceList.styles'
 export const DeviceList = () => {
   const { data: devices, isPending, isError, refetch } = useGetDevicesData()
   const [query] = useSearchQuery()
+  // The device links carry the list's URL parameters, so the device page keeps the search.
+  const { search } = useLocation()
   // Typing stays instant; the table catches up in the background.
   const deferredQuery = useDeferredValue(query)
 
@@ -29,9 +31,7 @@ export const DeviceList = () => {
     )
   }
 
-  const matchingDevices = devices.filter((device) =>
-    matchesSearch([device.name, device.lineName], deferredQuery),
-  )
+  const matchingDevices = searchDevices(devices, deferredQuery)
 
   if (matchingDevices.length === 0) {
     return <StatusMessage>No devices match “{deferredQuery}”.</StatusMessage>
@@ -39,7 +39,7 @@ export const DeviceList = () => {
 
   return (
     <StyledDeviceList>
-      <DeviceTable devices={matchingDevices} />
+      <DeviceTable devices={matchingDevices} search={search} />
     </StyledDeviceList>
   )
 }

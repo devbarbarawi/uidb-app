@@ -10,7 +10,7 @@ const devices = [
 
 describe('DeviceTable', () => {
   test('Should label the table and its columns', () => {
-    renderWithProviders(<DeviceTable devices={devices} />)
+    renderWithProviders(<DeviceTable devices={devices} search="" />)
 
     const table = screen.getByRole('table', { name: 'Devices' })
     const headers = within(table).getAllByRole('columnheader')
@@ -21,7 +21,7 @@ describe('DeviceTable', () => {
   })
 
   test('Should render a row per device', () => {
-    renderWithProviders(<DeviceTable devices={devices} />)
+    renderWithProviders(<DeviceTable devices={devices} search="" />)
 
     // One header row plus one row per device.
     expect(screen.getAllByRole('row')).toHaveLength(devices.length + 1)

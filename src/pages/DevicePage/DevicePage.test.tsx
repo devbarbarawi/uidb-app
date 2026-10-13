@@ -57,4 +57,25 @@ describe('DevicePage', () => {
 
     expect(router.state.location.pathname).toBe('/devices/u6')
   })
+
+  test('Should keep the search when going back and step only through matching devices', async () => {
+    const devices = [
+      ...uidbResponse.devices,
+      { id: 'udm', product: { name: 'Dream Machine' }, line: { name: 'UniFi' } },
+    ]
+    jest.spyOn(globalThis, 'fetch').mockResolvedValue(Response.json({ devices }))
+
+    renderDevicePage('/devices/udr?q=dream')
+
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'Dream Router' }),
+    ).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Back' })).toHaveAttribute('href', '/?q=dream')
+    // U6 Lite does not match "dream", so Dream Router is the first match: no previous device.
+    expect(screen.queryByRole('link', { name: 'Previous device' })).not.toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Next device' })).toHaveAttribute(
+      'href',
+      '/devices/udm?q=dream',
+    )
+  })
 })
