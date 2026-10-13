@@ -1,7 +1,7 @@
-import { DeviceList, DeviceSearch } from '../../components'
+import { DeviceList, DeviceSearch, ViewToggle } from '../../components'
 import { StyledToolbar } from './DevicesPage.styles'
 
-/** Home page: every UIDB device, with a search to narrow them down. */
+/** Home page: every UIDB device, with a search to narrow them down and a choice of layout. */
 export const DevicesPage = () => (
   <>
     <title>Devices · UIDB</title>
@@ -10,6 +10,7 @@ export const DevicesPage = () => (
 
     <StyledToolbar>
       <DeviceSearch />
+      <ViewToggle />
     </StyledToolbar>
 
     <DeviceList />

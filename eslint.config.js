@@ -62,6 +62,7 @@ export default defineConfig([
           StyledSearchField: 'input',
           StyledSuggestions: 'ul',
           StyledSuggestion: 'li',
+          StyledToggleButton: 'button',
         },
       },
     },

@@ -2,18 +2,23 @@ import { useDeferredValue } from 'react'
 import { useLocation } from 'react-router'
 
 import { searchDevices, useGetDevicesData } from '../../api'
-import { useSearchQuery } from '../../hooks'
+import { useSearchQuery, useViewParam } from '../../hooks'
+import { DeviceGrid } from '../GridView'
 import { DeviceTable } from '../ListView'
 import { StatusMessage } from '../StatusMessage'
 import { StyledDeviceList } from './DeviceList.styles'
 
-/** The UIDB devices matching the search, with loading, error and empty states. */
+/**
+ * The UIDB devices matching the search, as a table or a grid (`?view=grid`), with loading,
+ * error and empty states.
+ */
 export const DeviceList = () => {
   const { data: devices, isPending, isError, refetch } = useGetDevicesData()
   const [query] = useSearchQuery()
+  const [view] = useViewParam()
   // The device links carry the list's URL parameters, so the device page keeps the search.
   const { search } = useLocation()
-  // Typing stays instant; the table catches up in the background.
+  // Typing stays instant; the list catches up in the background.
   const deferredQuery = useDeferredValue(query)
 
   if (isPending) {
@@ -39,7 +44,11 @@ export const DeviceList = () => {
 
   return (
     <StyledDeviceList>
-      <DeviceTable devices={matchingDevices} search={search} />
+      {view === 'grid' ? (
+        <DeviceGrid devices={matchingDevices} search={search} />
+      ) : (
+        <DeviceTable devices={matchingDevices} search={search} />
+      )}
     </StyledDeviceList>
   )
 }

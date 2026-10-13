@@ -1,5 +1,7 @@
 import arrowLeft from '../../assets/icons/arrow-left.svg'
 import arrowRight from '../../assets/icons/arrow-right.svg'
+import gridView from '../../assets/icons/grid-view.svg'
+import listView from '../../assets/icons/list-view.svg'
 import logo from '../../assets/icons/logo.svg'
 import search from '../../assets/icons/search.svg'
 
@@ -12,6 +14,8 @@ import search from '../../assets/icons/search.svg'
 export const icons = {
   arrowLeft,
   arrowRight,
+  gridView,
+  listView,
   logo,
   search,
 } as const

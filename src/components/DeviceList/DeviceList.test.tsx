@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react'
+import { screen, within } from '@testing-library/react'
 
 import { renderWithProviders } from '../../test'
 import { DeviceList } from './DeviceList'
@@ -56,5 +56,15 @@ describe('DeviceList', () => {
     renderWithProviders(<DeviceList />, { route: '/?q=toaster' })
 
     expect(await screen.findByText('No devices match “toaster”.')).toHaveRole('status')
+  })
+
+  test('Should show the devices as a grid of cards when the URL asks for it', async () => {
+    jest.spyOn(globalThis, 'fetch').mockResolvedValue(Response.json(uidbResponse))
+
+    renderWithProviders(<DeviceList />, { route: '/?view=grid' })
+
+    const grid = await screen.findByRole('list', { name: 'Devices' })
+    expect(within(grid).getAllByRole('link')).toHaveLength(uidbResponse.devices.length)
+    expect(screen.queryByRole('table')).not.toBeInTheDocument()
   })
 })
