@@ -1,5 +1,6 @@
 export * from './AppHeader'
 export * from './AppLayout'
+export * from './DeviceCount'
 export * from './DeviceDetails'
 export * from './DeviceList'
 export * from './DeviceNavigation'

@@ -1,8 +1,7 @@
-import { useDeferredValue } from 'react'
 import { useLocation } from 'react-router'
 
-import { filterDevices, useGetDevicesData } from '../../api'
-import { useLineFilterParam, useSearchQuery, useViewParam } from '../../hooks'
+import { useGetDevicesData } from '../../api'
+import { useViewParam, useVisibleDevices } from '../../hooks'
 import { DeviceGrid } from '../GridView'
 import { DeviceTable } from '../ListView'
 import { StatusMessage } from '../StatusMessage'
@@ -13,15 +12,12 @@ import { StyledDeviceList } from './DeviceList.styles'
  * (`?view=grid`), with loading, error and empty states.
  */
 export const DeviceList = () => {
-  const { data: devices, isPending, isError, refetch } = useGetDevicesData()
-  const [query] = useSearchQuery()
-  const [lines] = useLineFilterParam()
+  const { isPending, isError, refetch } = useGetDevicesData()
+  const visibleDevices = useVisibleDevices()
   const [view] = useViewParam()
   // The device links carry the list's URL parameters, so the device page keeps the search and
   // filters.
   const { search } = useLocation()
-  // Typing stays instant; the list catches up in the background.
-  const deferredQuery = useDeferredValue(query)
 
   if (isPending) {
     return <StatusMessage>Loading devices…</StatusMessage>
@@ -38,18 +34,16 @@ export const DeviceList = () => {
     )
   }
 
-  const matchingDevices = filterDevices(devices, { query: deferredQuery, lines })
-
-  if (matchingDevices.length === 0) {
+  if (!visibleDevices?.length) {
     return <StatusMessage>No devices match your search and filters.</StatusMessage>
   }
 
   return (
     <StyledDeviceList>
       {view === 'grid' ? (
-        <DeviceGrid devices={matchingDevices} search={search} />
+        <DeviceGrid devices={visibleDevices} search={search} />
       ) : (
-        <DeviceTable devices={matchingDevices} search={search} />
+        <DeviceTable devices={visibleDevices} search={search} />
       )}
     </StyledDeviceList>
   )

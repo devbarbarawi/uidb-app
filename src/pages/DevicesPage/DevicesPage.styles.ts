@@ -10,6 +10,14 @@ export const StyledToolbar = styled.div`
   justify-content: space-between;
   padding: ${space[16]} ${space[32]} 0;
 `
+
+export const StyledToolbarStart = styled.div`
+  display: flex;
+  flex: 1 1 320px;
+  gap: ${space[16]};
+  align-items: center;
+`
+
 export const StyledToolbarEnd = styled.div`
   display: flex;
   gap: ${space[8]};
