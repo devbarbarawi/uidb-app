@@ -1,2 +1,2 @@
 export { createQueryWrapper, createTestQueryClient } from './createQueryWrapper'
-export { renderWithQueryClient } from './renderWithQueryClient'
+export { renderWithProviders } from './renderWithProviders'

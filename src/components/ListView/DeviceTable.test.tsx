@@ -1,5 +1,6 @@
-import { render, screen, within } from '@testing-library/react'
+import { screen, within } from '@testing-library/react'
 
+import { renderWithProviders } from '../../test'
 import { DeviceTable } from './DeviceTable'
 
 const devices = [
@@ -9,7 +10,7 @@ const devices = [
 
 describe('DeviceTable', () => {
   test('Should label the table and its columns', () => {
-    render(<DeviceTable devices={devices} />)
+    renderWithProviders(<DeviceTable devices={devices} />)
 
     const table = screen.getByRole('table', { name: 'Devices' })
     const headers = within(table).getAllByRole('columnheader')
@@ -20,7 +21,7 @@ describe('DeviceTable', () => {
   })
 
   test('Should render a row per device', () => {
-    render(<DeviceTable devices={devices} />)
+    renderWithProviders(<DeviceTable devices={devices} />)
 
     // One header row plus one row per device.
     expect(screen.getAllByRole('row')).toHaveLength(devices.length + 1)

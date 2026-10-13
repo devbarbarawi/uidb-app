@@ -1,3 +1,4 @@
+import arrowLeft from '../../assets/icons/arrow-left.svg'
 import logo from '../../assets/icons/logo.svg'
 
 /**
@@ -7,6 +8,7 @@ import logo from '../../assets/icons/logo.svg'
  * The keys are of type IconName, which is a union of all the icon names.
  */
 export const icons = {
+  arrowLeft,
   logo,
 } as const
 

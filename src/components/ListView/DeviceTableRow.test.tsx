@@ -1,10 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 
 import type { Device } from '../../api'
+import { renderWithProviders } from '../../test'
 import { DeviceTableRow } from './DeviceTableRow'
 
 const renderRow = (device: Device) =>
-  render(
+  renderWithProviders(
     <table>
       <tbody>
         <DeviceTableRow device={device} />
@@ -37,5 +38,18 @@ describe('DeviceTableRow', () => {
     renderRow({ id: 'lte', name: 'UniFi LTE', lineName: 'UniFi LTE', imageHash: undefined })
 
     expect(screen.getByRole('presentation')).toHaveAttribute('src', 'image-placeholder.png')
+  })
+
+  test('Should open the device page from the device name', async () => {
+    const { router, user } = renderRow({
+      id: 'u6',
+      name: 'U6 Lite',
+      lineName: 'UniFi',
+      imageHash: undefined,
+    })
+
+    await user.click(screen.getByRole('link', { name: 'U6 Lite' }))
+
+    expect(router.state.location.pathname).toBe('/devices/u6')
   })
 })

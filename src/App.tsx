@@ -1,18 +1,15 @@
+import { RouterProvider } from 'react-router/dom'
 import { QueryClientProvider } from '@tanstack/react-query'
 
-import { AppHeader, DeviceList } from './components'
 import { StyledGlobalStyles } from './design-system'
 import { queryClient } from './queryClient'
+import { router } from './router'
 
 export const App = () => (
   <QueryClientProvider client={queryClient}>
     {/* Design tokens, fonts and base styles of the design system. */}
     <StyledGlobalStyles />
 
-    <AppHeader />
-    <main>
-      <h1>UIDB APP Explorer</h1>
-      <DeviceList />
-    </main>
+    <RouterProvider router={router} />
   </QueryClientProvider>
 )

@@ -7,21 +7,11 @@ beforeEach(() => {
 })
 
 describe('App', () => {
-  test('Should render the main element', () => {
-    render(<App />)
-
-    expect(screen.getByRole('main')).toBeInTheDocument()
-  })
-
-  test('Should title the page with a level-one heading', () => {
-    render(<App />)
-
-    expect(screen.getByRole('heading', { level: 1, name: 'UIDB APP Explorer' })).toBeInTheDocument()
-  })
-
-  test('Should render the header', () => {
+  test('Should render the header, the main element and the devices page', () => {
     render(<App />)
 
     expect(screen.getByRole('banner')).toBeInTheDocument()
+    expect(screen.getByRole('main')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1, name: 'UIDB APP Explorer' })).toBeInTheDocument()
   })
 })

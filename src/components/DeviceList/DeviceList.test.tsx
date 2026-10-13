@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react'
 
-import { renderWithQueryClient } from '../../test'
+import { renderWithProviders } from '../../test'
 import { DeviceList } from './DeviceList'
 
 const uidbResponse = {
@@ -11,7 +11,7 @@ describe('DeviceList', () => {
   test('Should show a loading message while the devices load', () => {
     jest.spyOn(globalThis, 'fetch').mockReturnValue(new Promise(() => undefined))
 
-    renderWithQueryClient(<DeviceList />)
+    renderWithProviders(<DeviceList />)
 
     expect(screen.getByRole('status')).toHaveTextContent('Loading devices…')
   })
@@ -19,9 +19,9 @@ describe('DeviceList', () => {
   test('Should list the devices once loaded', async () => {
     jest.spyOn(globalThis, 'fetch').mockResolvedValue(Response.json(uidbResponse))
 
-    renderWithQueryClient(<DeviceList />)
+    renderWithProviders(<DeviceList />)
 
-    expect(await screen.findByRole('cell', { name: 'U6 Lite' })).toBeInTheDocument()
+    expect(await screen.findByRole('link', { name: 'U6 Lite' })).toBeInTheDocument()
   })
 
   test('Should explain a failure and load again on demand', async () => {
@@ -30,11 +30,11 @@ describe('DeviceList', () => {
       .mockResolvedValueOnce(new Response(null, { status: 503 }))
       .mockResolvedValueOnce(Response.json(uidbResponse))
 
-    const { user } = renderWithQueryClient(<DeviceList />)
+    const { user } = renderWithProviders(<DeviceList />)
 
     expect(await screen.findByRole('alert')).toHaveTextContent('Devices could not be loaded.')
     await user.click(screen.getByRole('button', { name: 'Try again' }))
 
-    expect(await screen.findByRole('cell', { name: 'U6 Lite' })).toBeInTheDocument()
+    expect(await screen.findByRole('link', { name: 'U6 Lite' })).toBeInTheDocument()
   })
 })

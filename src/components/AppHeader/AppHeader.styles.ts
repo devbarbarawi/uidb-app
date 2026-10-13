@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import styled from 'styled-components'
 
 import { border, color, duration, space } from '../../design-system'
@@ -18,7 +19,7 @@ export const StyledAppHeaderStart = styled.div`
   align-items: center;
 `
 
-export const StyledHomeLink = styled.a`
+export const StyledHomeLink = styled(Link)`
   display: inline-flex;
   padding: calc(5px - ${border.width});
   border: ${border.width} solid transparent;
