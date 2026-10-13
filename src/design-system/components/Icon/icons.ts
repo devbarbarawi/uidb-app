@@ -1,6 +1,7 @@
 import arrowLeft from '../../assets/icons/arrow-left.svg'
 import arrowRight from '../../assets/icons/arrow-right.svg'
 import logo from '../../assets/icons/logo.svg'
+import search from '../../assets/icons/search.svg'
 
 /**
  * This object contains all the icons used in the design system.
@@ -12,6 +13,7 @@ export const icons = {
   arrowLeft,
   arrowRight,
   logo,
+  search,
 } as const
 
 export type IconName = keyof typeof icons

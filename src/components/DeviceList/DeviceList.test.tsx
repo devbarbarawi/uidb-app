@@ -4,7 +4,10 @@ import { renderWithProviders } from '../../test'
 import { DeviceList } from './DeviceList'
 
 const uidbResponse = {
-  devices: [{ id: 'u6', product: { name: 'U6 Lite' }, line: { name: 'UniFi' } }],
+  devices: [
+    { id: 'u6', product: { name: 'U6 Lite' }, line: { name: 'UniFi' } },
+    { id: 'lte', product: { name: 'U-LTE' }, line: { name: 'UniFi LTE' } },
+  ],
 }
 
 describe('DeviceList', () => {
@@ -36,5 +39,22 @@ describe('DeviceList', () => {
     await user.click(screen.getByRole('button', { name: 'Try again' }))
 
     expect(await screen.findByRole('link', { name: 'U6 Lite' })).toBeInTheDocument()
+  })
+
+  test('Should list only the devices matching the search in the URL', async () => {
+    jest.spyOn(globalThis, 'fetch').mockResolvedValue(Response.json(uidbResponse))
+
+    renderWithProviders(<DeviceList />, { route: '/?q=lte' })
+
+    expect(await screen.findByRole('link', { name: 'U-LTE' })).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'U6 Lite' })).not.toBeInTheDocument()
+  })
+
+  test('Should say so when no device matches the search', async () => {
+    jest.spyOn(globalThis, 'fetch').mockResolvedValue(Response.json(uidbResponse))
+
+    renderWithProviders(<DeviceList />, { route: '/?q=toaster' })
+
+    expect(await screen.findByText('No devices match “toaster”.')).toHaveRole('status')
   })
 })
