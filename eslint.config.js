@@ -54,7 +54,17 @@ export default defineConfig([
       // Lets rules use TypeScript's type information.
       parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname },
     },
-    settings: { react: { version: 'detect' } },
+    settings: {
+      react: { version: 'detect' },
+      // Tells jsx-a11y which HTML element each interactive styled component renders.
+      'jsx-a11y': {
+        components: {
+          StyledSearchField: 'input',
+          StyledSuggestions: 'ul',
+          StyledSuggestion: 'li',
+        },
+      },
+    },
     rules: {
       '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
@@ -62,6 +72,12 @@ export default defineConfig([
       '@typescript-eslint/array-type': ['error', { default: 'generic', readonly: 'generic' }],
       'react/prop-types': 'off', // TypeScript checks props.
       'react/self-closing-comp': 'error',
+      // ARIA in HTML allows lists as listboxes and their items as options (as jsx-a11y's
+      // recommended preset does; the strict preset forbids it).
+      'jsx-a11y/no-noninteractive-element-to-interactive-role': [
+        'error',
+        { ul: ['listbox'], ol: ['listbox'], li: ['option'] },
+      ],
       eqeqeq: ['error', 'smart'],
     },
   },

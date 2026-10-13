@@ -40,3 +40,35 @@ export const StyledSearchField = styled.input`
     outline: none;
   }
 `
+export const StyledSuggestions = styled.ul`
+  position: absolute;
+  z-index: 1;
+  top: calc(100% + ${space[4]});
+  right: 0;
+  left: 0;
+  margin: 0;
+  padding: ${space[4]} 0;
+  border-radius: ${radius.m};
+  background: ${color.surface};
+  box-shadow: 0 16px 32px rgb(28 30 45 / 20%);
+  list-style: none;
+`
+
+export const StyledSuggestion = styled.li<{ $isActive: boolean }>`
+  display: flex;
+  gap: ${space[8]};
+  justify-content: space-between;
+  padding: ${space[4]} ${space[8]};
+  background: ${({ $isActive }) => ($isActive ? color.surfaceHover : 'transparent')};
+  color: ${color.textStrong};
+  cursor: pointer;
+
+  &:hover {
+    background: ${color.surfaceHover};
+  }
+`
+
+export const StyledSuggestionHint = styled.span`
+  flex-shrink: 0;
+  color: ${color.textMuted};
+`
