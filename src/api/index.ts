@@ -1,4 +1,5 @@
 export { makeRequest, type RequestOptions } from './helpers'
 export * from './models'
 export { getDevicesQuery, UIDB_URL } from './queries'
+export { useGetDeviceRecordData } from './useGetDeviceRecordData'
 export { useGetDevicesData } from './useGetDevicesData'

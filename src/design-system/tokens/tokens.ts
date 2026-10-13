@@ -26,6 +26,7 @@ export const tokenValues = {
   },
   font: {
     family: "'UI Sans', 'Lato', system-ui, -apple-system, 'Segoe UI', sans-serif",
+    familyMono: "ui-monospace, 'SF Mono', Menlo, Consolas, monospace",
     weightRegular: '400',
     weightBold: '700',
     sizeCaption: '12px',

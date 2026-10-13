@@ -23,6 +23,16 @@ describe('DevicePage', () => {
     expect(document.title).toBe('U6 Lite · UIDB')
   })
 
+  test('Should show every field of the UIDB record as JSON', async () => {
+    const devices = [{ ...uidbResponse.devices[0], sysid: 'a652' }]
+    jest.spyOn(globalThis, 'fetch').mockResolvedValue(Response.json({ devices }))
+
+    const { user } = renderDevicePage('/devices/u6')
+    await user.click(await screen.findByRole('button', { name: 'See All Details as JSON' }))
+
+    expect(screen.getByRole('region', { name: 'Device JSON' })).toHaveTextContent('"sysid": "a652"')
+  })
+
   test('Should explain when no device has the id from the URL', async () => {
     jest.spyOn(globalThis, 'fetch').mockResolvedValue(Response.json(uidbResponse))
 

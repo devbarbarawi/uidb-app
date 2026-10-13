@@ -1,4 +1,5 @@
 import { type Device, getDeviceImageUrl } from '../../api'
+import { DeviceJson } from '../DeviceJson'
 import {
   StyledDeviceDetails,
   StyledDeviceImage,
@@ -10,13 +11,15 @@ import {
 
 export type DeviceDetailsProps = {
   device: Device
+  /** The device's untouched UIDB record, shown as JSON. */
+  record: unknown
 }
 
 /** Twice the 260px image, for high-density screens. */
 const IMAGE_WIDTH = 520
 
 /** A device's image, name and details ("Device" page in the design). */
-export const DeviceDetails = ({ device }: DeviceDetailsProps) => (
+export const DeviceDetails = ({ device, record }: DeviceDetailsProps) => (
   <StyledDeviceDetails aria-labelledby="device-name">
     <StyledDeviceImage
       src={getDeviceImageUrl(device, IMAGE_WIDTH)}
@@ -28,6 +31,7 @@ export const DeviceDetails = ({ device }: DeviceDetailsProps) => (
         <StyledDeviceName id="device-name">{device.name}</StyledDeviceName>
         <StyledDeviceLine>{device.lineName}</StyledDeviceLine>
       </div>
+
       <StyledSpecs>
         <dt>Product Line</dt>
         <dd>{device.lineName}</dd>
@@ -36,6 +40,9 @@ export const DeviceDetails = ({ device }: DeviceDetailsProps) => (
         <dt>Name</dt>
         <dd>{device.name}</dd>
       </StyledSpecs>
+
+      {/* The key closes the JSON when paging to another device. */}
+      <DeviceJson key={device.id} data={record} />
     </StyledDeviceInfo>
   </StyledDeviceDetails>
 )

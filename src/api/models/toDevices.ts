@@ -44,3 +44,14 @@ export const toDevices = (response: unknown): Array<Device> => {
 
   return records.map(toDevice).filter((device) => !isNullOrUndefined(device))
 }
+
+/**
+ * The UIDB record with this id, exactly as UIDB sends it (every field, including the ones the
+ * UI does not use), or `undefined` when there is none.
+ */
+export const toDeviceRecord = (response: unknown, id: string | undefined): unknown => {
+  const records: ReadonlyArray<unknown> =
+    isRecord(response) && Array.isArray(response.devices) ? response.devices : []
+
+  return records.find((record) => isRecord(record) && record.id === id)
+}

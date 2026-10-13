@@ -1,4 +1,4 @@
-import { toDevice, toDevices } from './toDevices'
+import { toDevice, toDeviceRecord, toDevices } from './toDevices'
 
 describe('toDevice', () => {
   test('Should read the id, product name, product line and image hash', () => {
@@ -42,5 +42,21 @@ describe('toDevices', () => {
 
   test('Should reject a response without a devices list', () => {
     expect(() => toDevices({ items: [] })).toThrow('UIDB returned data in an unexpected format.')
+  })
+})
+
+describe('toDeviceRecord', () => {
+  const record = { id: 'u6', product: { name: 'U6 Lite' }, sysid: 'a652' }
+
+  test('Should return the whole record with the id, untouched', () => {
+    expect(toDeviceRecord({ devices: [{ id: 'udr' }, record] }, 'u6')).toBe(record)
+  })
+
+  test.each([
+    [{ devices: [{ id: 'udr' }] }, 'u6'],
+    [{ items: [record] }, 'u6'],
+    [{ devices: [record] }, undefined],
+  ])('Should return undefined when there is no such record: %p, %p', (response, id) => {
+    expect(toDeviceRecord(response, id)).toBeUndefined()
   })
 })

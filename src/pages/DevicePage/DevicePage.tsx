@@ -1,6 +1,6 @@
 import { useLocation, useParams } from 'react-router'
 
-import { filterDevices, useGetDevicesData } from '../../api'
+import { filterDevices, useGetDeviceRecordData, useGetDevicesData } from '../../api'
 import { DeviceDetails, DeviceNavigation, StatusMessage } from '../../components'
 import { useLineFilterParam, useSearchQuery } from '../../hooks'
 import { paths } from '../../paths'
@@ -16,6 +16,7 @@ export const DevicePage = () => {
   const [query] = useSearchQuery()
   const [lines] = useLineFilterParam()
   const { data: devices = [], isPending, isError, refetch } = useGetDevicesData()
+  const { data: record } = useGetDeviceRecordData(deviceId)
   const device = devices.find((candidate) => candidate.id === deviceId)
   const { previous, next } = getAdjacentItems(filterDevices(devices, { query, lines }), deviceId)
 
@@ -37,7 +38,7 @@ export const DevicePage = () => {
           </button>
         </StatusMessage>
       ) : device ? (
-        <DeviceDetails device={device} />
+        <DeviceDetails device={device} record={record} />
       ) : (
         <StatusMessage>No device with this ID exists.</StatusMessage>
       )}

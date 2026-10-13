@@ -3,17 +3,18 @@ import { render, screen } from '@testing-library/react'
 import { DeviceDetails } from './DeviceDetails'
 
 const device = { id: 'u6', name: 'U6 Lite', lineName: 'UniFi', imageHash: 'abc123' }
+const record = { id: 'u6', product: { name: 'U6 Lite' } }
 
 describe('DeviceDetails', () => {
   test('Should title the article with the device name', () => {
-    render(<DeviceDetails device={device} />)
+    render(<DeviceDetails device={device} record={record} />)
 
     expect(screen.getByRole('heading', { level: 1, name: 'U6 Lite' })).toBeInTheDocument()
     expect(screen.getByRole('article', { name: 'U6 Lite' })).toBeInTheDocument()
   })
 
   test('Should show the device image, described by the device name', () => {
-    render(<DeviceDetails device={device} />)
+    render(<DeviceDetails device={device} record={record} />)
 
     expect(screen.getByRole('img', { name: 'U6 Lite' })).toHaveAttribute(
       'src',
@@ -22,7 +23,7 @@ describe('DeviceDetails', () => {
   })
 
   test('Should list the product line, id and name', () => {
-    render(<DeviceDetails device={device} />)
+    render(<DeviceDetails device={device} record={record} />)
 
     expect(screen.getAllByRole('term').map((term) => term.textContent)).toEqual([
       'Product Line',

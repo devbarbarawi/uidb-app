@@ -66,6 +66,8 @@ export default defineConfig([
           StyledFilterButton: 'button',
           StyledResetButton: 'button',
           StyledLines: 'fieldset',
+          StyledJsonToggle: 'button',
+          StyledJson: 'pre',
         },
       },
     },
