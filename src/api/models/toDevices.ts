@@ -20,11 +20,13 @@ export const toDevice = (record: unknown): Device | undefined => {
 
   const product = isRecord(record.product) ? record.product : {}
   const line = isRecord(record.line) ? record.line : {}
+  const images = isRecord(record.images) ? record.images : {}
 
   return {
     id,
     name: readText(product.name) ?? 'Unnamed device',
     lineName: readText(line.name) ?? 'Unknown',
+    imageHash: readText(images.default),
   }
 }
 

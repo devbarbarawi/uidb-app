@@ -11,6 +11,7 @@ export const DeviceTable = ({ devices }: DeviceTableProps) => (
   <StyledDeviceTable aria-label="Devices">
     <thead>
       <tr>
+        <th scope="col" aria-label="Image" />
         <th scope="col">Product Line</th>
         <th scope="col">Name</th>
       </tr>

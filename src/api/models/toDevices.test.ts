@@ -1,10 +1,20 @@
 import { toDevice, toDevices } from './toDevices'
 
 describe('toDevice', () => {
-  test('Should read the id, product name and product line', () => {
-    const record = { id: 'u6', product: { name: 'U6 Lite' }, line: { name: 'UniFi' } }
+  test('Should read the id, product name, product line and image hash', () => {
+    const record = {
+      id: 'u6',
+      product: { name: 'U6 Lite' },
+      line: { name: 'UniFi' },
+      images: { default: 'abc123' },
+    }
 
-    expect(toDevice(record)).toEqual({ id: 'u6', name: 'U6 Lite', lineName: 'UniFi' })
+    expect(toDevice(record)).toEqual({
+      id: 'u6',
+      name: 'U6 Lite',
+      lineName: 'UniFi',
+      imageHash: 'abc123',
+    })
   })
 
   test('Should fall back to readable defaults for missing fields', () => {

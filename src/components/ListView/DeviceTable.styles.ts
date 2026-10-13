@@ -18,6 +18,11 @@ export const StyledDeviceTable = styled.table`
     white-space: nowrap;
   }
 
+  /* The image column fits the 20px thumbnail. */
+  th:first-child {
+    width: 36px;
+  }
+
   th {
     color: ${color.textStrong};
     font-weight: ${font.weightBold};

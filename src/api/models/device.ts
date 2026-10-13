@@ -8,4 +8,6 @@ export type Device = {
   name: string
   /** `line.name`, the product line, e.g. "UniFi". */
   lineName: string
+  /** `images.default`, the hash of the default product image, when UIDB has one. */
+  imageHash: string | undefined
 }
