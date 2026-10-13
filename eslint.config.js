@@ -13,7 +13,7 @@ import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
 export default defineConfig([
-  globalIgnores(['dist', 'coverage']),
+  globalIgnores(['dist', 'coverage', '.yarn']),
 
   // Code style in every file, JavaScript config files included.
   {
