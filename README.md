@@ -5,7 +5,7 @@ product line and details. Search, filter by product line, switch between a table
 open any device for its details. Built from the _Ubiquiti Frontend Test Assignment 2026_ Figma
 design.
 
-> **Live app:** _added after the first Vercel deployment._
+> **Live app:** [uidb-app-beta.vercel.app](https://uidb-app-beta.vercel.app/)
 
 ## Features
 
@@ -34,7 +34,7 @@ design.
 | Styling      | styled-components 6, design tokens as CSS variables, self-hosted Lato |
 | Tests        | Jest 30, React Testing Library, user-event, jest-dom                  |
 | Code quality | ESLint 9 (type-aware, React, hooks, jsx-a11y strict), Prettier        |
-| Tooling      | Node 24, Yarn 4 (`node_modules` linker), GitHub Actions               |
+| Tooling      | Node 24, Yarn 4 (`node_modules` linker), GitHub Actions, Vercel       |
 
 ## Getting started
 
@@ -303,9 +303,21 @@ check, tests and a production build. A failing step marks the commit with a red 
 
 ## Deployment
 
-The production build (`yarn build`) is a static site in `dist/`, so any static host can serve it.
-The app will be published on **Vercel**; the live URL and the setup steps are added here after
-the first deployment.
+The app is live at **https://uidb-app-beta.vercel.app/**. The production build (`yarn build`) is
+a static site in `dist/`, served by **Vercel**.
+
+- **Automatic deployments:** every push to `main` deploys to production once Vercel's build
+  passes, and every pull request gets its own preview URL.
+- **`vercel.json`** sets the install and build commands, and serves `index.html` for every path.
+  That lets React Router handle deep links such as `/devices/<id>?q=dream&view=grid`, including
+  on reload.
+- **Node** comes from `engines` in `package.json` (24.x).
+- **Yarn** is committed as `.yarn/releases/yarn-4.18.1.cjs` (`yarnPath` in `.yarnrc.yml`), so
+  every environment runs the same version. Don't enable Corepack on Vercel: it downloads Yarn
+  into the project folder, where `"type": "module"` makes Node load it as an ES module and the
+  install crashes.
+
+To deploy a fork, import the repository in Vercel; no environment variables are needed.
 
 ## Author
 
