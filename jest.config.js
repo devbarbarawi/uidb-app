@@ -1,7 +1,7 @@
 /** @type {import('jest').Config} */
 export default {
-  // A browser-like DOM in Node, so components can render.
-  testEnvironment: 'jsdom',
+  // jsdom plus Node's fetch, Response and Request, which plain jsdom lacks.
+  testEnvironment: 'jest-fixed-jsdom',
   roots: ['<rootDir>/src'],
   setupFilesAfterEnv: ['<rootDir>/test/setupTests.ts'],
   transform: {

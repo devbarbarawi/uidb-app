@@ -2,6 +2,10 @@ import { render, screen } from '@testing-library/react'
 
 import { App } from './App'
 
+beforeEach(() => {
+  jest.spyOn(globalThis, 'fetch').mockResolvedValue(Response.json({ devices: [] }))
+})
+
 describe('App', () => {
   test('Should render the main element', () => {
     render(<App />)

@@ -1342,6 +1342,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-core@npm:5.104.1":
+  version: 5.104.1
+  resolution: "@tanstack/query-core@npm:5.104.1"
+  checksum: 10c0/d42788e0c9ee4a389d7de21c5fe856acd50d24f72cc87b3c76e6852399ab9835801f415d0a9e10706d2a3a27937d42c5f1ac621ceeac21e6bcd60aa87984bdf4
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:5.104.1":
+  version: 5.104.1
+  resolution: "@tanstack/react-query@npm:5.104.1"
+  dependencies:
+    "@tanstack/query-core": "npm:5.104.1"
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 10c0/b5d431f983ff3dbd91c14eb2e3ec2dc0a429ab0b8b7dd6169a5b021eb450fffe1f2f1d0bef0726914b63d5b264b699d2ae1b4a2381bff85bb9c1c4c070407b74
+  languageName: node
+  linkType: hard
+
 "@testing-library/dom@npm:10.4.1":
   version: 10.4.1
   resolution: "@testing-library/dom@npm:10.4.1"
@@ -1389,6 +1407,15 @@ __metadata:
     "@types/react-dom":
       optional: true
   checksum: 10c0/87d65cca71a39c93fffa23746a751a7037a4b4e939ea6b234af5188e4bdec96a7568b05000db109b5b76c686899e93a329a594d7e690674e30b35594c87c9e1d
+  languageName: node
+  linkType: hard
+
+"@testing-library/user-event@npm:14.6.7":
+  version: 14.6.7
+  resolution: "@testing-library/user-event@npm:14.6.7"
+  peerDependencies:
+    "@testing-library/dom": ">=7.21.4"
+  checksum: 10c0/21f5e01bea2699b069947ae06d0b0fbabe0e90d2a2206b8f56a3f46126d09bd85320cba3fd3910c4d18710b1873e6966fb9021668966c615aaa14bf35d7df3ef
   languageName: node
   linkType: hard
 
@@ -4314,6 +4341,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jest-fixed-jsdom@npm:0.0.11":
+  version: 0.0.11
+  resolution: "jest-fixed-jsdom@npm:0.0.11"
+  peerDependencies:
+    jest-environment-jsdom: ">=28.0.0"
+  checksum: 10c0/fe6392c665e6f0ba82b2c622d4ed4c2855d223e63514b84b8a5502317221ce9e8922a419bd03ecfba3cae9dbd1be816ee3bd1f88763498fb6a34f2733fcc55d6
+  languageName: node
+  linkType: hard
+
 "jest-haste-map@npm:30.5.1":
   version: 30.5.1
   resolution: "jest-haste-map@npm:30.5.1"
@@ -6469,9 +6505,11 @@ __metadata:
     "@eslint/js": "npm:^9.39.5"
     "@fontsource/lato": "npm:5.3.0"
     "@stylistic/eslint-plugin": "npm:5.10.0"
+    "@tanstack/react-query": "npm:5.104.1"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/jest-dom": "npm:6.9.1"
     "@testing-library/react": "npm:16.3.3"
+    "@testing-library/user-event": "npm:14.6.7"
     "@types/jest": "npm:30.0.0"
     "@types/node": "npm:^24.13.3"
     "@types/react": "npm:^19.2.18"
@@ -6489,6 +6527,7 @@ __metadata:
     globals: "npm:^17.12.0"
     jest: "npm:30.5.2"
     jest-environment-jsdom: "npm:30.5.2"
+    jest-fixed-jsdom: "npm:0.0.11"
     jest-styled-components: "npm:7.4.0"
     prettier: "npm:3.9.9"
     react: "npm:^19.2.8"

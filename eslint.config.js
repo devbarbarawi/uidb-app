@@ -15,7 +15,7 @@ import tseslint from 'typescript-eslint'
 export default defineConfig([
   globalIgnores(['dist', 'coverage']),
 
-  // Code style in every file, JavaScript config files included (auto-fixable).
+  // Code style in every file, JavaScript config files included.
   {
     files: ['**/*.{js,ts,tsx}'],
     plugins: { 'simple-import-sort': simpleImportSort, '@stylistic': stylistic },
@@ -26,6 +26,8 @@ export default defineConfig([
         { groups: [['^\\u0000'], ['^react', '^@?\\w'], ['^@/'], ['^\\.']] },
       ],
       'simple-import-sort/exports': 'error',
+      // One import statement per module (a separate `import type` is allowed).
+      'no-duplicate-imports': ['error', { allowSeparateTypeImports: true }],
       // A blank line before every `return` that follows other statements.
       '@stylistic/padding-line-between-statements': [
         'error',
